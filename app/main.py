@@ -47,6 +47,7 @@ async def bootstrap() -> tuple[Bot, Dispatcher]:
         unknown_logger=unknown_logger,
         min_confidence=settings.min_confidence,
         ambiguity_delta=settings.ambiguity_delta,
+        owner_ids=settings.owner_ids_set,
     )
 
     if not settings.bot_token:

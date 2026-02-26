@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     group_antispam_ttl_sec: int = Field(default=900, alias="GROUP_ANTISPAM_TTL_SEC")
     min_confidence: float = Field(default=55.0, alias="MIN_CONFIDENCE")
     ambiguity_delta: float = Field(default=8.0, alias="AMBIGUITY_DELTA")
+    owner_ids: str = Field(default="", alias="OWNER_IDS")
 
     docs_base_url: str = Field(default="https://docs.tgtaps.com/tgtaps-docs", alias="DOCS_BASE_URL")
     docs_max_pages: int = Field(default=80, alias="DOCS_MAX_PAGES")
@@ -26,6 +27,19 @@ class Settings(BaseSettings):
     @property
     def support_usernames_set(self) -> set[str]:
         return {x.strip().lower().lstrip("@") for x in self.support_usernames.split(",") if x.strip()}
+
+    @property
+    def owner_ids_set(self) -> set[int]:
+        out: set[int] = set()
+        for raw in self.owner_ids.split(","):
+            raw = raw.strip()
+            if not raw:
+                continue
+            try:
+                out.add(int(raw))
+            except ValueError:
+                continue
+        return out
 
 
 @lru_cache(maxsize=1)

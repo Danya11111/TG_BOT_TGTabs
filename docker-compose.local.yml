@@ -1,0 +1,19 @@
+services:
+  bot-test:
+    build: .
+    container_name: tgtaps-support-bot-test
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    command: pytest -q
+
+  bot:
+    build: .
+    container_name: tgtaps-support-bot-local
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    command: python -m app.main

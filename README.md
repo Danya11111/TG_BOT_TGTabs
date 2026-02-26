@@ -19,6 +19,7 @@ Telegram support bot for TgTaps with no runtime neural networks.
 - Operations:
   - logs unknown questions for KB growth
   - stores last answer per user to preserve context
+  - owner-only analytics command: `/analitics` (alias `/analytics`)
 
 ## Architecture
 
@@ -47,6 +48,7 @@ copy .env.example .env
 ```
 
 Fill `BOT_TOKEN` and `BOT_USERNAME`.
+Also set `OWNER_IDS` with your Telegram user id.
 
 3. Build KB from your data:
 
@@ -60,6 +62,50 @@ python -m scripts.build_kb_from_docs --start-url https://docs.tgtaps.com/tgtaps-
 ```bash
 python -m app.main
 ```
+
+## Docker
+
+- Local run:
+
+```bash
+docker compose up --build
+```
+
+- Local CI-like cycle (build + tests + run):
+
+```bash
+docker compose -f docker-compose.local.yml up --build bot-test
+docker compose -f docker-compose.local.yml up --build -d bot
+```
+
+- Dev mode (mounted sources):
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+## CI/CD
+
+- CI workflow: `.github/workflows/ci.yml`
+  - Ruff lint
+  - Python compile check
+  - Pytest
+  - Docker build smoke
+- CD workflow: `.github/workflows/cd.yml`
+  - Build and push image to `ghcr.io/<owner>/<repo>`
+  - Optional VPS deploy via SSH when secrets are configured:
+    - `DEPLOY_HOST`
+    - `DEPLOY_USER`
+    - `DEPLOY_SSH_KEY`
+
+## Owner Analytics Command
+
+Send `/analitics` in DM to the bot (owner only), report includes:
+
+1. Top 10 requests
+2. Total requests
+3. Latest 10 requests
+4. Quality section: unknown rate, private/group split, top categories, action hints
 
 ## Notes
 

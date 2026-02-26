@@ -1,0 +1,52 @@
+[
+  {
+    "id": "manual_wallet_connect_001",
+    "question": "Как подключить TON-кошелек в TgTaps?",
+    "summary": "Подключение делается через блок Wallet Connect и корректные настройки Telegram Mini App.",
+    "steps": [
+      "Откройте проект в TgTaps Builder.",
+      "Добавьте блок Wallet Connect на страницу входа или профиля.",
+      "Проверьте корректность настроек WebApp у вашего бота в BotFather.",
+      "Опубликуйте изменения и перезапустите Mini App в Telegram."
+    ],
+    "docs_links": [
+      {
+        "title": "TgTaps Documentation",
+        "url": "https://docs.tgtaps.com/tgtaps-docs"
+      }
+    ],
+    "video_links": [],
+    "category": "wallet",
+    "tags": ["ton", "wallet", "mini-app"],
+    "aliases": ["как подключить кошелек", "wallet connect", "подключение тон кошелька"],
+    "related_ids": [],
+    "answer_version": 1,
+    "status": "active",
+    "source": "manual"
+  },
+  {
+    "id": "manual_referral_001",
+    "question": "Как включить реферальную систему в TgTaps?",
+    "summary": "Реферальная логика настраивается через блоки Invite/Friends и reward-параметры.",
+    "steps": [
+      "Добавьте блок Invite/Friends в ваш flow.",
+      "Настройте награду за приглашение и условия начисления.",
+      "Проверьте deeplink параметры запуска бота.",
+      "Протестируйте сценарий приглашения с другого аккаунта."
+    ],
+    "docs_links": [
+      {
+        "title": "Referral docs",
+        "url": "https://docs.tgtaps.com/tgtaps-docs"
+      }
+    ],
+    "video_links": [],
+    "category": "referrals",
+    "tags": ["referral", "friends", "invite"],
+    "aliases": ["рефералка", "реферальная система", "инвайты"],
+    "related_ids": [],
+    "answer_version": 1,
+    "status": "active",
+    "source": "manual"
+  }
+]

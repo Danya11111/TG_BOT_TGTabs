@@ -1,39 +1,52 @@
-# TgTaps Support Bot (Production-Ready, Rule-Based)
+# TgTaps Support Bot
 
-Telegram support bot for TgTaps with no runtime neural networks.
+Production-ready Telegram support bot with strict layered architecture and rule-based KB search.
 
-## What it does
+## Architecture Overview
 
-- Private chats:
-  - accepts user question
-  - finds best KB answer
-  - sends structured response: summary, step-by-step guide, docs links, video links, similar questions
-- Groups:
-  - sends short answer
-  - invites user to continue in DM for full answer
-  - prevents duplicate spam answers for same question
-- KB pipeline:
-  - imports from Telegram chat exports (`messages*.html`)
-  - imports from documentation pages (crawler)
-  - supports tags, aliases, categories, versioned answers
-- Operations:
-  - logs unknown questions for KB growth
-  - stores last answer per user to preserve context
-  - owner-only analytics command: `/analitics` (alias `/analytics`)
+Project is organized into explicit layers:
 
-## Architecture
+- `src/tgtaps_support_bot/domain` - entities, value objects, domain search logic.
+- `src/tgtaps_support_bot/application` - use-cases and orchestration contracts.
+- `src/tgtaps_support_bot/infrastructure` - DB gateway, parsers, logging, anti-spam adapters.
+- `src/tgtaps_support_bot/presentation` - Telegram handlers/keyboards and output formatters.
+- `config` - env, docker, and CI workflow copies.
+- `data` - seed, generated artifacts, and raw exports separated by lifecycle.
+- `archive/candidates_for_review` - archived artifacts kept for audit/review.
 
-- `app/parsers` - chat/docs ingestion into KB articles
-- `app/kb` - seed loader
-- `app/search` - exact + alias + keyword + fuzzy ranking
-- `app/bot` - Telegram handlers and anti-spam
-- `app/formatters` - answer templates
-- `app/observability` - unknown question logger
-- `app/db.py` - schema and data access (SQLite)
+Legacy `app/*` modules are kept as compatibility shims to avoid breaking existing entrypoints/imports.
 
-## Setup
+## Repository Map
 
-1. Create virtual env and install deps:
+```text
+.
+├─ src/tgtaps_support_bot/
+│  ├─ domain/
+│  ├─ application/
+│  ├─ infrastructure/
+│  └─ presentation/
+├─ config/
+│  ├─ env/
+│  ├─ docker/
+│  └─ ci/workflows/
+├─ scripts/
+├─ tests/
+│  ├─ unit/domain/
+│  ├─ unit/presentation/
+│  └─ integration/
+├─ data/
+│  ├─ seed/
+│  ├─ generated/
+│  └─ raw_exports/
+├─ docs/
+│  ├─ architecture/
+│  └─ reports/assets/
+└─ archive/candidates_for_review/
+```
+
+## Quick Start
+
+1. Create virtual environment and install dependencies:
 
 ```bash
 python -m venv .venv
@@ -41,20 +54,17 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-2. Configure env:
+2. Create local environment file:
 
 ```bash
-copy .env.example .env
+copy config\env\.env.example .env
 ```
 
-Fill `BOT_TOKEN` and `BOT_USERNAME`.
-Also set `OWNER_IDS` with your Telegram user id.
-
-3. Build KB from your data:
+3. Build KB from exports/docs:
 
 ```bash
-python -m scripts.build_kb_from_chats --export-dir .
-python -m scripts.build_kb_from_docs --start-url https://docs.tgtaps.com/tgtaps-docs
+python -m scripts.build_kb_from_chats --export-dir data/raw_exports
+python -m scripts.build_kb_from_docs --start-url https://tgtaps.gitbook.io/tgtaps-docs
 ```
 
 4. Run bot:
@@ -63,52 +73,45 @@ python -m scripts.build_kb_from_docs --start-url https://docs.tgtaps.com/tgtaps-
 python -m app.main
 ```
 
-## Docker
+## Docker Commands
 
 - Local run:
 
 ```bash
-docker compose up --build
+docker compose -f config/docker/docker-compose.yml up --build
 ```
 
-- Local CI-like cycle (build + tests + run):
+- Local CI-like cycle:
 
 ```bash
-docker compose -f docker-compose.local.yml up --build bot-test
-docker compose -f docker-compose.local.yml up --build -d bot
+docker compose -f config/docker/docker-compose.local.yml up --build bot-test
+docker compose -f config/docker/docker-compose.local.yml up --build -d bot
 ```
 
-- Dev mode (mounted sources):
+- Dev mode:
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose -f config/docker/docker-compose.dev.yml up --build
+```
+
+## Commands for Data and Reports
+
+- Generate group QA analytics artifacts:
+
+```bash
+python -m scripts.generate_group_qa_report --export-dir data/raw_exports --out-dir data/generated
 ```
 
 ## CI/CD
 
-- CI workflow: `.github/workflows/ci.yml`
-  - Ruff lint
-  - Python compile check
-  - Pytest
-  - Docker build smoke
-- CD workflow: `.github/workflows/cd.yml`
-  - Build and push image to `ghcr.io/<owner>/<repo>`
-  - Optional VPS deploy via SSH when secrets are configured:
-    - `DEPLOY_HOST`
-    - `DEPLOY_USER`
-    - `DEPLOY_SSH_KEY`
+- Active workflows: `.github/workflows/ci.yml`, `.github/workflows/cd.yml`
+- Mirror copies: `config/ci/workflows/ci.yml`, `config/ci/workflows/cd.yml`
 
-## Owner Analytics Command
+## Owner Analytics
 
-Send `/analitics` in DM to the bot (owner only), report includes:
+Use `/analitics` or `/analytics` in bot DM (owner only). Report includes:
 
 1. Top 10 requests
-2. Total requests
+2. Request volume
 3. Latest 10 requests
-4. Quality section: unknown rate, private/group split, top categories, action hints
-
-## Notes
-
-- Current anti-spam uses SQLite TTL dedup table.
-- For horizontal scaling replace `GroupAntiSpam` storage with Redis.
-- Unknown questions are stored in `kb_unknown_questions` table.
+4. Quality section (unknown rate, private/group split, top categories)

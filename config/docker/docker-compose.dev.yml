@@ -1,6 +1,8 @@
 services:
   bot-dev:
-    build: .
+    build:
+      context: .
+      dockerfile: config/docker/Dockerfile
     container_name: tgtaps-support-bot-dev
     env_file:
       - .env

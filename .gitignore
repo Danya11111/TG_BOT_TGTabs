@@ -7,4 +7,8 @@ __pycache__/
 *.pyd
 .pytest_cache/
 .mypy_cache/
-data/kb.sqlite3
+data/generated/kb.sqlite3
+data/generated/group_qa_pairs.json
+data/generated/group_qa_pairs.csv
+data/generated/group_qa.md
+data/generated/group_chat_analytics.md

@@ -1,6 +1,8 @@
 services:
   bot-test:
-    build: .
+    build:
+      context: .
+      dockerfile: config/docker/Dockerfile
     container_name: tgtaps-support-bot-test
     env_file:
       - .env
@@ -9,7 +11,9 @@ services:
     command: pytest -q
 
   bot:
-    build: .
+    build:
+      context: .
+      dockerfile: config/docker/Dockerfile
     container_name: tgtaps-support-bot-local
     restart: unless-stopped
     env_file:

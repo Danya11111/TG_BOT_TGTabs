@@ -1,6 +1,6 @@
 import json
 
-from app.search.search_engine import SearchEngine
+from tgtaps_support_bot.domain.services.search_engine import SearchEngine
 
 
 def _row(

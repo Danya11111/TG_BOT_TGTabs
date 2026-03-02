@@ -1,4 +1,4 @@
-from app.formatters.analytics_formatter import format_analytics
+from tgtaps_support_bot.presentation.formatters.analytics_formatter import format_analytics
 
 
 def test_format_analytics_contains_required_sections():

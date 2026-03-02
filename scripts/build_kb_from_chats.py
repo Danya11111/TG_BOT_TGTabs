@@ -2,18 +2,24 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from app.config import get_settings
-from app.db import ensure_db, upsert_articles
-from app.parsers.chat_parser import build_qa_from_exports
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from config.env.settings import get_settings
+from tgtaps_support_bot.infrastructure.persistence.sqlite_gateway import ensure_db, upsert_articles
+from tgtaps_support_bot.infrastructure.parsers.chat_parser import build_qa_from_exports
 
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Build KB entries from Telegram exported chats.")
-    parser.add_argument("--export-dir", default=".", help="Directory with messages*.html files")
+    parser.add_argument("--export-dir", default="data/raw_exports", help="Directory with messages*.html files")
     args = parser.parse_args()
 
     load_dotenv()

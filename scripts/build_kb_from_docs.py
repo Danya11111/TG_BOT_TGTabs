@@ -2,12 +2,18 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import sys
 
 from dotenv import load_dotenv
 
-from app.config import get_settings
-from app.db import ensure_db, upsert_articles
-from app.parsers.doc_parser import crawl_docs_to_articles
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from config.env.settings import get_settings
+from tgtaps_support_bot.infrastructure.persistence.sqlite_gateway import ensure_db, upsert_articles
+from tgtaps_support_bot.infrastructure.parsers.doc_parser import crawl_docs_to_articles
 
 
 async def main() -> None:

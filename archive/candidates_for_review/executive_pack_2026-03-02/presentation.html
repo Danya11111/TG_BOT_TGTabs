@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TgTaps Support Transformation</title>
+    <style>
+        @page { size: 1920px 1080px; margin: 0; }
+        body { 
+            margin: 0; padding: 0; 
+            font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; 
+            background: #e9ecef; 
+            -webkit-print-color-adjust: exact;
+        }
+        .slide { 
+            width: 1920px; height: 1080px; 
+            box-sizing: border-box; 
+            padding: 80px 120px;
+            background: #ffffff; 
+            position: relative;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header { 
+            border-bottom: 4px solid #052c65; 
+            padding-bottom: 25px; 
+            margin-bottom: 50px; 
+        }
+        .title { 
+            font-size: 64px; 
+            color: #052c65; 
+            font-weight: 700; 
+            margin: 0 0 15px 0; 
+            letter-spacing: -1px;
+        }
+        .thesis { 
+            font-size: 36px; 
+            color: #495057; 
+            font-weight: 400; 
+            margin: 0; 
+        }
+        .content { 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 50px;
+        }
+        .diagram-box {
+            background: #f8f9fa;
+            border: 2px dashed #ced4da;
+            border-radius: 16px;
+            padding: 60px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .diagram-box.list {
+            text-align: left;
+            width: 70%;
+        }
+        .diagram-box.list ul {
+            margin: 0; padding-left: 40px;
+        }
+        .diagram-box.list li {
+            font-size: 44px; color: #212529; margin-bottom: 25px; line-height: 1.3;
+        }
+        .diagram-box.list li strong {
+            color: #052c65;
+        }
+        .diagram-title {
+            font-size: 28px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+        .diagram-text {
+            font-size: 56px;
+            color: #052c65;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .takeaway { 
+            background: #052c65; 
+            color: #ffffff; 
+            padding: 35px 50px; 
+            font-size: 38px; 
+            border-radius: 12px; 
+            font-weight: 500; 
+            display: flex;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(5,44,101,0.2);
+        }
+        .takeaway span {
+            margin-right: 25px;
+            font-size: 46px;
+        }
+        .footer { 
+            position: absolute; 
+            bottom: 40px; 
+            right: 120px; 
+            font-size: 24px; 
+            color: #adb5bd; 
+            font-weight: 600;
+        }
+        .logo {
+            position: absolute;
+            bottom: 40px;
+            left: 120px;
+            font-size: 28px;
+            color: #052c65;
+            font-weight: 800;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 24px; height: 24px;
+            background: #052c65;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        .highlight { color: #d90429; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Transforming Support at Scale</h1>
+            <p class="thesis">Поддержка превращена из реактивной функции в управляемую платформу.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Maturity ladder</div>
+                <div class="diagram-text">Reactive &nbsp;➔&nbsp; Structured &nbsp;➔&nbsp; Scalable</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Заложен фундамент масштабирования без линейного роста headcount.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 1 / 12</div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Why Change Was Needed</h1>
+            <p class="thesis">Ручная поддержка не масштабируется при росте обращений.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Pareto-анализ тем запросов</div>
+                <div class="diagram-text">Ограниченный пул тем (UI, Ошибки, Баланс) формирует более <span class="highlight">80%</span> нагрузки поддержки.</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Автоматизация топ-категорий дает максимальный бизнес-эффект.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 2 / 12</div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">AS-IS: Core Pain Points</h1>
+            <p class="thesis">Фрагментированные знания + отсутствие полного контура метрик.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Current-state user journey</div>
+                <div class="diagram-text">Chat &nbsp;➔&nbsp; <span class="highlight">Wait</span> &nbsp;➔&nbsp; Manual Reply &nbsp;➔&nbsp; <span class="highlight">Repeat</span></div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Без системного цикла улучшения качество поддержки нестабильно.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 3 / 12</div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Solution Architecture (TO-BE)</h1>
+            <p class="thesis">Построен end-to-end контур: ingestion ➔ KB ➔ retrieval ➔ observability.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Архитектурная схема</div>
+                <div class="diagram-text" style="font-size: 42px;">Ingestion Pipeline <br>⬇<br> Knowledge Base <br>⬇<br> Search Engine <br>⬇<br> Telegram Bot &nbsp;➔&nbsp; Analytics & Logs</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Управление знаниями и качеством стало централизованным.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 4 / 12</div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">UX Improvements</h1>
+            <p class="thesis">Ответы стали структурированными и action-oriented.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">New User Flow</div>
+                <div class="diagram-text">Group Short Answer <br>⬇<br> DM Full Answer <br>⬇<br> Disambiguation / Category Fallback</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Пользователь быстрее доходит до решения, меньше фрустрации.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 5 / 12</div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Reliability & Engineering Maturity</h1>
+            <p class="thesis">Укреплен операционный контур стабильности.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">CI/CD Pipeline</div>
+                <div class="diagram-text">Ruff Lint &nbsp;➔&nbsp; Pytest &nbsp;➔&nbsp; Docker Build &nbsp;➔&nbsp; Deploy</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Снижен риск регрессий и ручных ошибок релиза.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 6 / 12</div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Factual Baseline</h1>
+            <p class="thesis">Уже есть валидный количественный baseline.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box list">
+                <div class="diagram-title" style="text-align: center;">KPI Cards [Фактические данные]</div>
+                <ul>
+                    <li><strong>4,428</strong> проанализированных сообщений</li>
+                    <li><strong>1,103</strong> целевых вопросов</li>
+                    <li><strong>595</strong> извлеченных Q/A пар</li>
+                    <li><strong>53.9%</strong> вопросов с найденным ответом</li>
+                </ul>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Решения по приоритетам можно принимать data-driven.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 7 / 12</div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Quantified Business Impact (Modeled)</h1>
+            <p class="thesis">Потенциал заметной экономии и ускорения поддержки.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Ручные часы до/после</div>
+                <div class="diagram-text">Снижение нагрузки: <span class="highlight">-20% ... -35%</span><br><br>Конверсия в целевые действия: <span class="highlight">+5 ... 12 п.п.</span></div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Высвобождение 40-90 часов команды в месяц для продуктовых задач.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 8 / 12</div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Risks and Mitigation</h1>
+            <p class="thesis">Риски прозрачны и управляемы.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box list">
+                <div class="diagram-title" style="text-align: center;">Risk heatmap & mitigation</div>
+                <ul>
+                    <li><strong>Технические:</strong> Ограничения SQLite ➔ Миграция на Redis/PG</li>
+                    <li><strong>Продуктовые:</strong> Потеря контекста ➔ Улучшение disambiguation</li>
+                    <li><strong>Организационные:</strong> Unknown backlog ➔ Регулярный review-процесс</li>
+                </ul>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Ключевые риски покрываются roadmap-мероприятиями.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 9 / 12</div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Roadmap (0-180 Days)</h1>
+            <p class="thesis">План развития разбит на три управляемых этапа.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Timeline</div>
+                <div class="diagram-text" style="font-size: 46px;">
+                    <strong>0-30 дней:</strong> Stabilize & Instrument <br><br>
+                    <strong>30-90 дней:</strong> Scale & Optimize <br><br>
+                    <strong>90-180 дней:</strong> Productize
+                </div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Есть реалистичный путь от стабильности к масштабируемости.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 10 / 12</div>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">KPI Cockpit</h1>
+            <p class="thesis">Успех определяется конкретными KPI с целями.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box list">
+                <div class="diagram-title" style="text-align: center;">Target vs Baseline</div>
+                <ul>
+                    <li><strong>Containment rate:</strong> целевой уровень 30-40%</li>
+                    <li><strong>Unknown rate:</strong> снижение до &lt; 20%</li>
+                    <li><strong>Repeat question rate:</strong> снижение на 20%</li>
+                    <li><strong>Time-to-first-answer:</strong> мгновенно для покрытых тем</li>
+                </ul>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Продукт поддержки становится управляемым как бизнес-функция.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 11 / 12</div>
+    </div>
+
+    <!-- Slide 12 -->
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Decision Ask</h1>
+            <p class="thesis">Инициатива готова к масштабированию.</p>
+        </div>
+        <div class="content">
+            <div class="diagram-box">
+                <div class="diagram-title">Decision Tree</div>
+                <div class="diagram-text">Approve Scale Phase <br>⬇<br> Execute 90-day Governance <br>⬇<br> Measure Impact & ROI</div>
+            </div>
+        </div>
+        <div class="takeaway">
+            <span>💡</span> Вывод: Рекомендовано утвердить фазу scale и KPI governance на 90 дней.
+        </div>
+        <div class="logo">TgTaps Support</div>
+        <div class="footer">Slide 12 / 12</div>
+    </div>
+
+</body>
+</html>
